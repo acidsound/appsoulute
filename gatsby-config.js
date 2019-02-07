@@ -54,6 +54,13 @@ module.exports = {
             options: {
               destinationDir: 'static',
             }
+          },
+          {
+            resolve: 'gatsby-remark-graph',
+            options: {
+              language: 'mermaid', // default
+              theme: 'default'
+            }
           }
         ],
       },
