@@ -59,7 +59,7 @@ module.exports = {
             resolve: 'gatsby-remark-graph',
             options: {
               language: 'mermaid', // default
-              theme: 'default'
+              theme: 'dark'
             }
           }
         ],
