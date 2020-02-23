@@ -153,6 +153,7 @@ username과 address.street 는 빼보았다.
 남은 것은 users.js를 app.js에 적용하는 것
 
 ```jsx
+/* App.js */
 import React from 'react';
 import { Admin, Resource } from 'react-admin';
 import { UserList } from './users'
@@ -179,7 +180,7 @@ export default () => (
 
 # Admin Component 훑어보기
 
-https://marmelab.com/react-admin/Admin.html 을 보니 원하는 최소조건인 dataProvider와 authProvider가 admin component에 있는 것을 발견했다.
+[https://marmelab.com/react-admin/Admin.html](https://marmelab.com/react-admin/Admin.html) 을 보니 원하는 최소조건인 dataProvider와 authProvider가 admin component에 있는 것을 발견했다.
 
 dataProvider 는 지금은 prisma가 된 graphCool의 영향을 받은 것 같다.
 
@@ -205,4 +206,51 @@ getMany에서 조건절. 가령 특정 기간안에 속하는 것들을 가져�
 
 기본적으로 가지고 있는 속성 이외에도 extend 해서 사용가능해보인다 어짜피 params 를 받을 수 있으니.
 
-결국 dataProvider랑 authProvider를 보아야하는데 다음에 authProvider를 먼저 봐야겠다.
+# AuthProvider 추가하기
+authProvider 속성이 있으니 추가해보자.
+```
+/* App.js */
+...
+const authProvider = {
+    login: params => Promise.resolve(),
+    logout: params => Promise.resolve(),
+    checkAuth: params => Promise.resolve(),
+    checkError: error => Promise.resolve(),
+    getPermissions: params => Promise.resolve(),
+};
+
+export default () => (
+  <Admin dataProvider={dataProvider} authProvider={authProvider}>
+...
+```
+아무일도 일어나지 않는다.
+
+왜냐면 checkAuth를 하면 항상 Promise.resolve() 를 반환하기 때문이다.
+
+구현을 해보는 것도 좋지만 그냥 확인만 잽싸게 해보자. query string이 login을 넣고 검사하도록 한다.
+
+```
+/* App.js */
+...
+    checkAuth: ()=> (new URLSearchParams(window.location.search)).get('login') ?
+        Promise.resolve() : Promise.reject(),`
+...
+```
+checkAuth만 login의 값이 있고 없음에 따라 resolve하거나 reject()하게 하였다.
+
+이것만으로 로그인 화면이 나온다. 좋다. 이거지.
+
+checkAuth에서 참이 되는 조건이 login일때 설정하여 Promise.resolve()를 반환하고 거짓이 되는 저건이 logout일때 설정하여 Promise.reject() 가 되면 된다.
+
+Permissions도 있고 좋은 구조다. 눈에 일단 익숙한 것을 보니 그렇다.
+
+# 결론
+Theme는 material theme를 사용하고 있다.
+
+약간 수고가 있긴 했지만 Theme를 변경하는 것도 돈으로 해결할 수 있었다.
+
+백오피스는 로직 이외에 시간을 들이기엔 너무 정형화가 되있는 작업이다.
+
+돈으로 해결할 수 있는 건 빨리 해결하고 자산화하는 것이 좋다고 생각한다.
+
+React Admin, 쓸만한 물건인가 찍어 먹어보니 쓸만했다! 라는 결론으로 마무리하도록 하겠다.
