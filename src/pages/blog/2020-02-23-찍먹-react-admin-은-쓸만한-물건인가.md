@@ -51,7 +51,7 @@ render(<App />, document.getElementById('root'));
 
 이와 같이 최소 구성 (안그래도 최소 구성이지만)으로 정리한다.
 
-보통 이정도가 좋더라.
+보통 이 정도가 좋더라.
 
 # JSON Provider부터 시작하기
 
@@ -88,9 +88,11 @@ jsonServerProvider 객체를 dataProvider로 Admin component에게 제공하면 
 
 ListGuesser 가 name attribute를가지고 URL을 만들어 준다.
 
+그리고 마찬가지 방식으로 `EditGuesser`라는 놈을 가지고 와서 `<Resource name="users" list={ListGuesser} edit={EditGuesser}/>`라고 추가만 해줘도 CRUD가 멋지게 된다.
+
 브라우저 개발자 도구에서 network를 보니
 
-https://jsonplaceholder.typicode.com/users?_end=10&_order=ASC&_sort=id&_start=0
+[https://jsonplaceholder.typicode.com/users?_end=10&_order=ASC&_sort=id&_start=0](https://jsonplaceholder.typicode.com/users?_end=10&_order=ASC&_sort=id&_start=0)
 
 이와 같이 fetch를 보내 값을 가져온다.
 
@@ -167,7 +169,7 @@ export default () => (
 
 잘 적용이 된다.
 
-보니까 나머지 CRUD도 잘 될 것 같다. 
+보니까 나머지 CRUD도 비슷하게 하면 될 것 같다.
 
 `<TextField source="website" />`를 `<UrlField source="website" />`로 바꾸는 것도 잘 된다. 정상적으로 링크도 되고 어짜피 attribute 만 맞추면 문제는 없겠다.
 
@@ -197,7 +199,7 @@ const dataProvider = {
 
 getMany에서 조건절. 가령 특정 기간안에 속하는 것들을 가져온다던가 할때 어떻게 만들지 궁금하다.
 
-https://jsonplaceholder.typicode.com/users?_end=10&_order=ASC&_sort=id&_start=0
+[https://jsonplaceholder.typicode.com/users?_end=10&_order=ASC&_sort=id&_start=0](https://jsonplaceholder.typicode.com/users?_end=10&_order=ASC&_sort=id&_start=0)
 
 아까 List에서 봤던 걸 보면 filter 조건을 위와 같이 준 것으로 보아 가능할 것 같긴 하다.
 
