@@ -1,6 +1,6 @@
 ---
 templateKey: blog-post
-title: 찍먹 - React Admin 은 쓸만한 물건인가?
+title: 찍먹 React Admin은 쓸만한 물건인가?
 date: 2020-02-23T11:24:17.259Z
 description: React Admin을 써보고 사용 가능한 도구인지 검증해본다.
 tags:
